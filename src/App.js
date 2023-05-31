@@ -7,13 +7,22 @@ import Todo from "./views/Todo";
 function App() {
   let [name, setName] = useState("Duc");
   const [address, setAddress] = useState("");
-
+  const [todos, setTodos] = useState([
+    { id: "todo1", title: "Watching ", type: "nguyen" },
+    { id: "todo2", title: "Learning ", type: "nguyen" },
+    { id: "todo3", title: "Playing Game ", type: "vu" },
+    { id: "todo4", title: "Reading book ", type: "vu" },
+  ]);
   const handleEventClick = (event) => {
     if (!address) {
       alert("Empty input");
       return;
     }
-    let newTodo = { id: "abc", title: address, type: "vu" };
+    let newTodo = {
+      id: Math.floor(Math.random() * 10000),
+      title: address,
+      type: "vu",
+    };
     setTodos([...todos, newTodo]);
     setAddress("");
   };
@@ -22,12 +31,11 @@ function App() {
     setAddress(event.target.value);
   };
 
-  const [todos, setTodos] = useState([
-    { id: "todo1", title: "Watching ", type: "nguyen" },
-    { id: "todo2", title: "Learning ", type: "nguyen" },
-    { id: "todo3", title: "Playing Game ", type: "vu" },
-    { id: "todo4", title: "Reading book ", type: "vu" },
-  ]);
+  const deleteDataTodo = (id) => {
+    let currentTodo = todos;
+    currentTodo = currentTodo.filter((item) => item.id !== id);
+    setTodos(currentTodo);
+  };
 
   return (
     <div className="App">
@@ -36,10 +44,15 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <div>Hello world with {name}</div>
         <br />
-        <Todo myData={todos} title={"All todos"} />
         <Todo
-          myData={todos.filter((item) => item.type === "vu")}
+          todos={todos}
+          title={"All todos"}
+          deleteDataTodo={deleteDataTodo}
+        />
+        <Todo
+          todos={todos.filter((item) => item.type === "vu")}
           title={`Vu's user`}
+          deleteDataTodo={deleteDataTodo}
         />
         <input
           type="text"
