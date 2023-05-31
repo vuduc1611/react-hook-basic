@@ -14,7 +14,9 @@ function App() {
         <div>
           Hello world with {name} in {obj.name}
         </div>
-        <p>{JSON.stringify(obj)}</p>
+        <p style={{ color: "red", fontSize: "20px", marginTop: "20px" }}>
+          {JSON.stringify(obj)}
+        </p>
         <a href={link} target="_blank">
           Visit youtube
         </a>
