@@ -1,31 +1,13 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useFetch } from "../customize/fetch";
 const Covid = () => {
-  const [dataCovid, setDataCovid] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  // component didmount
-  useEffect(() => {
-    try {
-      async function fetchData() {
-        let res = await axios.get(
-          "https://corona.lmao.ninja/v2/continents?yesterday=true&sort"
-        );
-        let data = res && res.data ? res.data : [];
-        setDataCovid(data);
-        setIsLoading(false);
-        setIsError(false);
-      }
-      fetchData();
-    } catch (e) {
-      setIsError(true);
-      setIsLoading(false);
-      alert(e.message);
-    }
-  }, []);
+  const {
+    data: dataCovid,
+    isLoading,
+    isError,
+  } = useFetch("https://corona.lmao.ninja/v2/continents?yesterday=true&sort");
+
   return (
     <table>
-      {console.log(">>check data covid", dataCovid)}
       <thead>
         <tr>
           <th>Cases</th>
