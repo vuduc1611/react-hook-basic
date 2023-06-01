@@ -3,6 +3,7 @@ import "./App.css";
 import Nav from "./views/Nav";
 import { useState, useEffect } from "react";
 import Todo from "./views/Todo";
+import Covid from "./views/Covid";
 
 function App() {
   let [name, setName] = useState("Duc");
@@ -53,7 +54,8 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <div>Hello world with {name}</div>
         <br />
-        <Todo
+        <Covid />
+        {/* <Todo 
           todos={todos}
           title={"All todos"}
           deleteDataTodo={deleteDataTodo}
@@ -70,7 +72,7 @@ function App() {
         />
         <button type="text" onClick={(event) => handleEventClick(event)}>
           Click me
-        </button>
+        </button> */}
       </header>
     </div>
   );
