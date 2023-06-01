@@ -20,7 +20,7 @@ const Todo = (props) => {
           </div>
         );
       })}
-      <hr></hr>
+      <hr color="grey"></hr>
     </div>
   );
 };
