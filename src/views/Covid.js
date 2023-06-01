@@ -2,12 +2,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 const Covid = () => {
   const [dataCovid, setDataCovid] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   // component didmount
   useEffect(() => {
-    let res = axios
-      .get("https://corona.lmao.ninja/v2/continents?yesterday=true&sort")
-      .then((res) => setDataCovid(res.data))
-      .catch((error) => console.log(error));
+    try {
+      async function fetchData() {
+        let res = await axios.get(
+          "https://corona.lmao.ninja/v2/continents?yesterday=true&sort"
+        );
+        let data = res && res.data ? res.data : [];
+        setDataCovid(data);
+        setIsLoading(false);
+        setIsError(false);
+      }
+      fetchData();
+    } catch (e) {
+      setIsError(true);
+      setIsLoading(false);
+      alert(e.message);
+    }
   }, []);
   return (
     <table>
@@ -22,11 +36,13 @@ const Covid = () => {
         </tr>
       </thead>
       <tbody>
-        {dataCovid &&
+        {isError === false &&
+          isLoading === false &&
+          dataCovid &&
           dataCovid.length > 0 &&
-          dataCovid.map((item) => {
+          dataCovid.map((item, index) => {
             return (
-              <tr key={item.updated}>
+              <tr key={index}>
                 <td>{item.cases}</td>
                 <td>{item.deaths}</td>
                 <td>{item.recovered}</td>
@@ -35,6 +51,22 @@ const Covid = () => {
               </tr>
             );
           })}
+
+        {isLoading === true && (
+          <tr>
+            <td colSpan="5" style={{ textAlign: "center" }}>
+              Loading ...
+            </td>
+          </tr>
+        )}
+
+        {isError === true && (
+          <tr>
+            <td colSpan="5" style={{ textAlign: "center" }}>
+              Something wrong ......
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

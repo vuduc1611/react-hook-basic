@@ -52,7 +52,9 @@ function App() {
       <header className="App-header">
         <Nav />
         <img src={logo} className="App-logo" alt="logo" />
-        <div>Hello world with {name}</div>
+        <div>
+          <h3>Covid Tracking </h3>
+        </div>
         <br />
         <Covid />
         {/* <Todo 
