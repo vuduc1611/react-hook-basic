@@ -7,6 +7,8 @@ import Covid from "./views/Covid";
 import { Countdown, NewCountDown } from "./views/Countdown";
 
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import Blog from "./views/Blog";
+import DetailBlog from "./views/DetailBlog";
 
 function App() {
   let [name, setName] = useState("Duc");
@@ -20,11 +22,11 @@ function App() {
 
   //didmount
   useEffect(() => {
-    console.log("run use effect");
+    // console.log("run use effect");
   }, [address]);
 
   useEffect(() => {
-    console.log("run use effect todos");
+    // console.log("run use effect todos");
   }, [todos]);
   const handleEventClick = (event) => {
     if (!address) {
@@ -85,7 +87,12 @@ function App() {
               Click me
             </button>
           </Route>
-          <Route path="/secret">{/* <Home /> */}</Route>
+          <Route path="/blog" exact>
+            <Blog />
+          </Route>
+          <Route path="/blog/:id">
+            <DetailBlog />
+          </Route>
         </Switch>
       </div>
     </Router>
