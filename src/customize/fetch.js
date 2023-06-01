@@ -6,21 +6,33 @@ const useFetch = (url) => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    try {
-      async function fetchData() {
-        let res = await axios.get(url);
+    const ourRequest = axios.CancelToken.source(); // 1st step
+    async function fetchData() {
+      try {
+        let res = await axios.get(url, {
+          CancelToken: ourRequest.token,
+        });
         let data = res && res.data ? res.data : [];
         setData(data);
         setIsLoading(false);
         setIsError(false);
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log("Request canceled", err.message);
+        } else {
+          setIsError(true);
+          setIsLoading(false);
+        }
       }
-      fetchData();
-    } catch (e) {
-      setIsError(true);
-      setIsLoading(false);
-      alert(e.message);
     }
-  }, []);
+    setTimeout(() => {
+      fetchData();
+    }, 3000);
+
+    return () => {
+      ourRequest.cancel("Operation canceled by the user");
+    };
+  }, [url]);
 
   return { data, isLoading, isError };
 };
