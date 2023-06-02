@@ -11,6 +11,7 @@ import Blog from "./views/Blog";
 import DetailBlog from "./views/DetailBlog";
 import AddNewBlog from "./views/AddNewBlog";
 import NotFound from "./views/NotFound";
+import YoutubeSearch from "./views/YoutubeSearch";
 
 function App() {
   let [name, setName] = useState("Duc");
@@ -98,7 +99,9 @@ function App() {
           <Route path="/add-new-blog">
             <AddNewBlog />
           </Route>
-
+          <Route path="/secret">
+            <YoutubeSearch />
+          </Route>
           <Route path="*">
             <NotFound />
           </Route>
