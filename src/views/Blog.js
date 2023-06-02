@@ -8,9 +8,10 @@ import AddNewBlog from "./AddNewBlog";
 
 const Blog = () => {
   const [show, setShow] = useState(false);
+  const [newData, setNewData] = useState([]);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [newData, setNewData] = useState([]);
 
   const {
     data: dataBlogs,
